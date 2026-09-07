@@ -11,7 +11,7 @@ struct LinkedList {
 
 void FunctionShow(struct LinkedList *head);
 void FunctionDelete(struct LinkedList *head);
-
+void FunctionAdd(struct LinkedList *head);
 
 int main(void){
     
@@ -35,7 +35,8 @@ int main(void){
     Grapes->quantity = 20;
     Grapes->next = NULL;
 
-    
+    struct LinkedList *listHead = Bananas;
+
     while (1){
         printf("-show\n");
         printf("-add\n");
@@ -48,10 +49,13 @@ int main(void){
         scanf("%19s",action);
 
         if (strcmp(action, "show")==0){
-            FunctionShow(Bananas);
+            FunctionShow(listHead);
         }
         if (strcmp(action,"del") == 0){
-            FunctionDelete(Bananas);
+            FunctionDelete(listHead);
+        }
+        if (strcmp(action, "add") == 0){
+            FunctionAdd(listHead);
         }
     }
 }
@@ -77,7 +81,7 @@ void FunctionDelete(struct LinkedList *head){
 
     struct LinkedList *previous = head;
     struct LinkedList *current = head->next;
-//problem with deleting first one
+
     while (current != NULL) {
         if(current->id == id) {
             previous->next = current->next;
@@ -91,5 +95,32 @@ void FunctionDelete(struct LinkedList *head){
         current = current->next;
     }
     printf("product not found");
+}
+void FunctionAdd(struct LinkedList *head) {
+    int id;
+    char name[50];
+    int quantity;
+
+    printf("give the name: \n");
+    scanf("%49s", &name);
+
+    printf("specify quantity: \n");
+    scanf("%d", &quantity);
+
+    struct LinkedList *last = head;
+
+    while (last->next != NULL){
+        last = last->next;
+    }
+    struct LinkedList *newNode = malloc(sizeof(struct LinkedList));
+    newNode->next = NULL;
+    last->next = newNode;
+
+    newNode->id =last->id + 1;
+    strcpy(newNode->name, name);
+    newNode->quantity = quantity;
+
+    printf("item added");
+
 
 }
