@@ -10,7 +10,7 @@ struct LinkedList {
 };
 
 void FunctionShow(struct LinkedList *head);
-void FunctionDelete(struct LinkedList *head);
+void FunctionDelete(struct LinkedList **head);
 void FunctionAdd(struct LinkedList *head);
 
 int main(void){
@@ -52,7 +52,7 @@ int main(void){
             FunctionShow(listHead);
         }
         if (strcmp(action,"del") == 0){
-            FunctionDelete(listHead);
+            FunctionDelete(&listHead);
         }
         if (strcmp(action, "add") == 0){
             FunctionAdd(listHead);
@@ -73,14 +73,24 @@ void FunctionShow(struct LinkedList *head){
     }
 }
 
-void FunctionDelete(struct LinkedList *head){
+void FunctionDelete(struct LinkedList **head){
     int id;
     
     printf("id to delete: \n");
     scanf("%d", &id);
 
-    struct LinkedList *previous = head;
-    struct LinkedList *current = head->next;
+    if (id == 1) {
+        struct LinkedList *tempHead = *head;
+
+        *head = (*head)->next;
+        free(tempHead);
+        return;
+    }
+    
+    
+    
+    struct LinkedList *previous = *head;
+    struct LinkedList *current = (*head)->next;
 
     while (current != NULL) {
         if(current->id == id) {
@@ -94,7 +104,7 @@ void FunctionDelete(struct LinkedList *head){
         previous = current;
         current = current->next;
     }
-    printf("product not found");
+    printf("product not found \n");
 }
 void FunctionAdd(struct LinkedList *head) {
     int id;
@@ -102,7 +112,7 @@ void FunctionAdd(struct LinkedList *head) {
     int quantity;
 
     printf("give the name: \n");
-    scanf("%49s", &name);
+    scanf("%49s", name);
 
     printf("specify quantity: \n");
     scanf("%d", &quantity);
