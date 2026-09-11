@@ -4,9 +4,9 @@ My simple warehouse program written in C.
 
 The project uses a singly linked list and dynamic memory allocation.
 
-###What I learned
+What I learned
 
-*This project helped me understand how linked lists work in C and how to handle common edge cases, such as:*
+This project helped me understand how linked lists work in C and how to handle common edge cases, such as:
 
 -adding to an empty list
 -deleting different elements
